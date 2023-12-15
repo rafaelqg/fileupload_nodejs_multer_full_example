@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script>
+            function uploadWithAjax(){
+                let form = document.attachment;
+                let formData = new FormData(form);
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange=function(){
+                    if(this.status==200 && this.readyState==4){
+                        alert("File sent");
+                    }
+                }
+                xhr.open('POST',form.action , true);
+                xhr.send(formData);
+        }
+        </script>
+    </head>
+    <body>
+        <h1> Single file upload example</h1>
+        <form name="attachment" 
+            action="http://localhost:5333/document_receiver"
+            method="POST" 
+            enctype="multipart/form-data">
+            
+            <input type="file" name="my_attachment" />
+            <input type="text" name="just_some_comment" />
+            <input type="button" 
+                onclick="uploadWithAjax()" 
+                value="Send files" />
+        </form>     
+        
+        <h1> Multiple filea upload example </h1>
+        <form 
+            action="http://localhost:5333/receiver_multiple_files"
+            method="POST" 
+            enctype="multipart/form-data">
+            
+            <input type="file" name="my_attachments" />
+            <input type="file" name="my_attachments" />
+            <input type="file" name="my_attachments" />
+            <input type="submit" />
+        </form>    
+    </body>
+</html>
